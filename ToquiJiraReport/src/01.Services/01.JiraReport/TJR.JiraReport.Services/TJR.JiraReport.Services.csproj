@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\02.CommonLibs\TJR.Common\TJR.Common.csproj" />
     <ProjectReference Include="..\..\TJR.JiraReport.Models\TJR.JiraReport.Models.csproj" />
+    <ProjectReference Include="..\TJR.JiraReport.Models\TJR.JiraReport.Models.csproj" />
   </ItemGroup>
 
 </Project>
