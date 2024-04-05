@@ -26,7 +26,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ./ToquiJiraReport/
+          context: ToquiJiraReport
           file: dockerfile
           push: true
           tags: ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }}
