@@ -1,0 +1,6 @@
+@TJR.JiraReport.Api_HostAddress = http://localhost:5099
+
+GET {{TJR.JiraReport.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

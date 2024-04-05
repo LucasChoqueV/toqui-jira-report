@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  jira-report-api:
+    container_name: jira-report-api-container
+    build:
+      context: .
+      dockerfile: Jira.Dockerfile
+    ports:
+      - 5555:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - ASPNETCORE_URLS=http://+:80
+      - ApiUrls__JiraApi=https://openix.atlassian.net
+      - DOTNET_ROLL_FORWARD=LatestMajor
+
+networks:
+  default:
+    name: global
+    external: true
