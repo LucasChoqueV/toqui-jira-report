@@ -25,27 +25,27 @@ jobs:
           file: ToquiJiraReport/dockerfile
           push: true
           tags: ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }}
-  # deploy_app:
-  #   name: Deploy app
-  #   needs: build_app
-  #   environment:
-  #     name: staging
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+  deploy_app:
+    name: Deploy app
+    needs: build_app
+    environment:
+      name: staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-  #     - name: Set up SSH
-  #       run: |
-  #         sudo apt-get update -y
-  #         sudo apt-get install openssh-client -y
-  #         eval $(ssh-agent -s)
-  #         mkdir -p ~/.ssh
-  #         echo "${{ secrets.SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
-  #         chmod 400 ~/.ssh/id_rsa
-  #         ssh-add ~/.ssh/id_rsa
-  #         echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - name: Set up SSH
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install openssh-client -y
+          eval $(ssh-agent -s)
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-  #     - name: Execute deployment script via SSH
-  #       run: |
-  #         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -s' < deploy/deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+      - name: Execute deployment script via SSH
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -s' < deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ secrets.DOCKER_PASSWORD }} ${{ secrets.DOCKER_USERNAME }} ${{ vars.ENVIRONMENT }} ${{ vars.JIRA_API }}
