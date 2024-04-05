@@ -48,4 +48,4 @@ jobs:
 
       - name: Execute deployment script via SSH
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -s' < deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ secrets.DOCKER_PASSWORD }} ${{ secrets.DOCKER_USERNAME }} ${{ vars.ENVIRONMENT }} ${{ vars.JIRA_API }}
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash -s' < ToquiJiraReport/deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ secrets.DOCKER_PASSWORD }} ${{ secrets.DOCKER_USERNAME }} ${{ vars.ENVIRONMENT }} ${{ vars.JIRA_API }}
